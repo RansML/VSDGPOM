@@ -3,10 +3,10 @@
 Fast Gaussian process occupancy maps (GPOM) for dynamic environments using Big Data GP
 
 **Required software:**
-python 2.7 (last tested)
-numpy
-matplotlib
-sklearn
+python 2.7 (last tested),
+numpy,
+matplotlib,
+sklearn, and
 GPflow 0.3.5 (last tested)
 
 **Demonstration**
