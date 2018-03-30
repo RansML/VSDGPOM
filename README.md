@@ -1,5 +1,5 @@
 # Learning highly dynamic environments with stochastic variational inference
-## Variational Sparse Dynamic Gaussian Process Regression (VSDGPOM)
+## Variational Sparse Dynamic Gaussian Process Occupancy Maps (VSDGPOM)
 Fast Gaussian process occupancy maps (GPOM) for dynamic environments using Big Data GP
 
 **Required software:**
