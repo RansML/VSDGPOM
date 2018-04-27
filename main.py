@@ -69,8 +69,8 @@ def main():
          pl.scatter(X_plot[:, 0], X_plot[:, 1], c=qry_svDGPOM_mean.ravel(), s=3, cmap='jet', vmin=0, vmax=1, edgecolor='');
          pl.colorbar()
          pl.title('VSDGPOM | iter={}'.format(ith_scan))
-         #pl.show()
-         pl.savefig('outputs/sim1_{}.png'.format(ith_scan))
+         pl.show()
+         #pl.savefig('outputs/sim1_{}.png'.format(ith_scan))
 
 if __name__ == '__main__':
     main()
