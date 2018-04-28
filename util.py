@@ -7,8 +7,10 @@ import util2
 
 def read_txy_csv(fn):
    data = readCsvFile(fn)
-   Xtest = data[:, :3]
-   Ytest = data[:, 3][:, np.newaxis]
+   slice =  data.shape[1] - 1
+   Xtest = data[ : , :slice ]
+   Ytest = data[ : ,  slice ][ : , np.newaxis ]
+   print 'shapes: ', Xtest.shape, Ytest.shape
    return Xtest, Ytest
 
 def read_carmen(fn_gfs):
@@ -31,9 +33,14 @@ def read_carmen(fn_gfs):
 def get_mesh_grid(resolution=1, limits=[-120, 120, -20, 120]):
    x_spaced = np.arange(limits[0], limits[1], resolution )
    y_spaced = np.arange(limits[2], limits[3], resolution)
-   xx, yy = np.meshgrid(x_spaced, y_spaced)
-   X_plot = np.vstack((xx.flatten(),yy.flatten())).T
-   return X_plot
+   if len(limits) == 6:
+       z_spaced = np.arange( limits[4] , limits[5] , resolution )
+       xx, yy , zz = np.meshgrid(x_spaced, y_spaced, z_spaced)
+       X_plot = np.vstack( ( xx.flatten() , yy.flatten() , zz.flatten() ) ).T
+   else:
+       xx, yy = np.meshgrid(x_spaced, y_spaced)
+       X_plot = np.vstack((xx.flatten(),yy.flatten())).T
+   return X_plot, xx.shape
 
 def generate_test_data_everyother(fn, X_all, Y_all, step=2):
     #temp - rand method
@@ -79,6 +86,6 @@ def readCsvFile( fileName ):
     reader = csv.reader(open(fileName,'r') )
     dataList = []
     for row in reader:
-        dataList.append( [float(elem) for elem in row ] )
+        dataList.append( [float(elem) for elem in row ] ) #[:-1]
     return np.array( dataList )
 

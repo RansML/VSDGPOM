@@ -19,10 +19,10 @@ class svDGPOM():
       self.filter_informative_data_thresh = filter_informative_data_thresh
       self.n_clusters = n_clusters
       self.bring_forward_paras = bring_forward_paras
+      self.nDim = 2
 
    def kernel(self):
-       nDim = 2
-       kern = GPflow.kernels.RBF(nDim, ARD=False) + GPflow.kernels.White(nDim)
+       kern = GPflow.kernels.RBF(self.nDim, ARD=False) + GPflow.kernels.White(self.nDim)
        kern.white.variance = 0.01
        return kern
 
@@ -91,7 +91,10 @@ class svDGPOM():
             self.mdl.kern.rbf.variance._array = kern_rbf_variance_array
             self.mdl.kern.white.variance._array = kern_white_variance_array
             self.mdl.q_mu._array[:q_mean.shape[0], :] = q_mean
-            self.mdl.q_sqrt._array[:q_sqrt.shape[0], :q_sqrt.shape[1], :] = q_sqrt
+            if self.nDim == 2:
+               self.mdl.q_sqrt._array[:q_sqrt.shape[0], :q_sqrt.shape[1], :] = q_sqrt
+            elif self.nDim == 3:
+               self.mdl.q_sqrt._array[:q_sqrt.shape[0], :q_sqrt.shape[1], :q_sqrt.shape[2]] = q_sqrt
 
          #optimize all hyper/-parameters again
          self.mdl.optimize(max_iters=self.max_iters_for_opt, method=self.optimization_method)
