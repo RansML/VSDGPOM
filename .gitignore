@@ -3,6 +3,8 @@
 /.idea
 *.zip
 *~
+*.csv
+*.png
 
 # Workspace specific
 .idea/workspace.xml
